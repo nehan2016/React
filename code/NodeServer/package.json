@@ -1,0 +1,17 @@
+{
+  "name": "demo_package",
+  "version": "1.0.0",
+  "description": "Learning purpose",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "express": "^4.17.1"
+  },
+  "dependencies": {
+    "http": "0.0.0"
+  }
+}
