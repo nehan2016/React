@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-
+import Card from '../Card/Card';
 class List extends Component{
 	constructor(){
 		super();
 		this.state = {
-			items: [{email: "nareshit@gmail.com"}]
+			items: [{name: "nareshit", phone: 123456789, website:"#"}]
 		}
 	}
 	fetchData(){
@@ -19,10 +19,10 @@ class List extends Component{
 	render(){
 		return (
 			<div>
-				<ol>{
-					this.state.items.map((user, index)=><li key={index}>{user.email}</li>)
-				}</ol>
-				<button onClick={()=>this.fetchData()}>Load Data</button>
+				<button style={ { display:"block" } } onClick={()=>this.fetchData()}>Load Data</button>
+				{
+					this.state.items.map((user, index)=> (<Card key={index} user={user}/>))
+				}
 			</div>
 		)
 	}

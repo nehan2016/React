@@ -10,13 +10,13 @@ function App() {
   }
   return (
     <div className="App">
-      <CustomButton name="Submit" clickHandler={handleClick}></CustomButton>
-      <CustomButton name="Clear" clickHandler={handleClick}></CustomButton>
-	  <CustomButton name="Children" clickHandler={handleClick}>
-	  		<h1>I'm children of a CustomButton</h1>
-	  </CustomButton>
-	  <hr/>
-      <List />
+        <CustomButton name="Submit" clickHandler={handleClick}></CustomButton>
+        <CustomButton name="Clear" clickHandler={handleClick}></CustomButton>
+    	  <CustomButton name="Children" clickHandler={handleClick}>
+    	  		<h1>I'm children of a CustomButton</h1>
+    	  </CustomButton>
+    	  <hr/>
+        <List />
     </div>
   );
 }
