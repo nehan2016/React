@@ -1,8 +1,9 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import CustomButton from './components/CustomButton/CustomButton'
-import List from './components/List/List'
+import CustomButton from './components/CustomButton/CustomButton';
+import List from './components/List/List';
+
 
 function App() {
   function handleClick(){
@@ -17,6 +18,7 @@ function App() {
     	  </CustomButton>
     	  <hr/>
         <List />
+        <hr/>
     </div>
   );
 }
