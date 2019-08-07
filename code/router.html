@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/5.0.1/react-router-dom.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/babel">
+
+
+            let Login = ()=>{
+                return (<h1>Login page</h1>);
+            }
+
+            let Homepage = ()=>{
+                return (<h1>Home Page</h1>);
+            }
+
+            let AboutUs = ()=>{
+                return (<h1>AboutUs page</h1>);
+            }
+
+            class Parent extends React.Component{
+                constructor(){
+                    super();
+                }
+                render(){
+                    return(<div>
+                    <ReactRouterDOM.HashRouter>
+                        <ul>
+                            <li><ReactRouterDOM.Link to="/">Login</ReactRouterDOM.Link></li>
+                            <li><ReactRouterDOM.Link to="/home">HomePage</ReactRouterDOM.Link></li>
+                            <li><ReactRouterDOM.Link to="/about">About us</ReactRouterDOM.Link></li>
+                        </ul>
+                        <ReactRouterDOM.Switch>
+                            <ReactRouterDOM.Route  path="/" component={Login} exact />
+                            <ReactRouterDOM.Route  path="/home" component={Homepage} />
+                            <ReactRouterDOM.Route  path="/about" component={AboutUs} />
+                        </ReactRouterDOM.Switch>
+                    </ReactRouterDOM.HashRouter>
+                    </div>);
+                }
+            }
+          ReactDOM.render(<Parent/>,document.getElementById('root'));
+        </script>
+    </body>
+</html>
