@@ -1,0 +1,10 @@
+
+
+1. Functional Component (Props, State - useState, useEffect)
+2. Class Component (Props, State, LifeCycleMethods, CustomMethods, MutatingState, HTTP calls, CreaRef)
+3. Highier Order Component, PureComponent
+4. Debug using Developers Tool
+5. Passing state values to other components as props, 
+6. Passing methods - Lifting State up
+7. Adding styles
+8. Redux (Actions, Sotre, Dispathing, Reducers)

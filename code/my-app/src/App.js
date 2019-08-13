@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import CustomButton from './components/CustomButton/CustomButton';
 import List from './components/List/List';
-
+import { HashRouter, Link, Switch, Route } from 'react-router-dom';
 
 function App() {
   function handleClick(){

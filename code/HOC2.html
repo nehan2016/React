@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/babel">
+          
+          class Child extends React.PureComponent{
+            constructor(props){
+                super(props);
+            }
+            render(){
+            console.log(this.props);
+                return (<div>
+                    <h1>Child Component {this.props.count} </h1>
+                    <button onClick={this.props.alert}>Alert</button> 
+                </div>);
+            }
+          }
+
+          let Hoc = (prop, fun)=>{
+            return (Comp)=>{
+                return (props)=>{
+                    console.log(prop, fun);
+                    return (<div><Comp count={prop} alert={fun} /></div>);
+                }
+            }
+          }
+
+          let HocCom = Hoc(12, function(){ alert("Alerted!"); })(Child);
+
+          class Parent extends React.Component{
+            constructor(){
+                super();
+            }
+            updateArr(){
+            }
+            render(){
+                return (<div>
+                    <h1>Parent Component</h1>
+                    <HocCom />
+                </div>);
+            }
+          }
+
+          ReactDOM.render(<Parent/>,document.getElementById('root'));
+        </script>
+    </body>
+</html>

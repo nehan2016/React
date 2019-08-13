@@ -1,0 +1,139 @@
+<html>
+    <head>
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flux/3.1.3/Flux.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/EventEmitter/5.2.6/EventEmitter.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/babel">
+            class Store extends EventEmitter{
+                constructor(){
+                    super();
+                    this.items = [{id: 1, name:'ABC'}, {id:2, name: "PQR"}]
+                }
+                getAllItems(){
+                    return this.items;
+                }
+                addItem(p){
+                    let name = p.name ||  ('XYZ'+(this.items.length+1));
+                    this.items.push({ id: this.items.length+1, name: name });
+                    this.emit("change");
+                }
+                removeItem(){
+                    this.items.pop();
+                    this.emit("change");
+                }
+                actionHandler(payload){
+                    console.log(payload);
+                    switch(payload.action){
+                        case 'add': this.addItem(payload);break;
+                        case 'remove': this.removeItem();break;
+                      }
+                }
+            }
+            
+            let store = new Store();
+            
+            let d = new Flux.Dispatcher();
+            d.register(store.actionHandler.bind(store));
+
+            class Homepage extends React.Component{
+                constructor(){
+                    super();
+                    this.state = {
+                        items: store.getAllItems()
+                    }
+                }
+                componentWillMount(){
+                    store.on("change", ()=>{
+                        this.setState({ items: store.getAllItems()});
+                    })
+                }
+                render(){
+                    console.log(this.props.items);
+                    return (<div>
+                        Homepage Component
+                        <ul>
+                        {
+                            this.state.items.map(x=>(<li key={x.id}>{x.name}</li>))
+                        }
+                        </ul>
+                    </div>);
+                }
+            }
+            class AboutUs extends React.Component{
+                constructor(){
+                    super();
+                    this.state = {
+                        items: store.getAllItems()
+                    }
+                }
+                componentWillMount(){
+                    store.on("change", ()=>{
+                        this.setState({ items: store.getAllItems()});
+                    })
+                }
+
+                saveItem(){
+                    d.dispatch({action: 'add'});
+                }
+                render(){
+                    return (<div>
+                        AboutUs Component
+                        <ul>
+                        {
+                            this.state.items.map(x=>(<li key={x.id}>{x.name}</li>))
+                        }
+                        </ul>
+                        <button onClick={()=>this.saveItem()}>Add Item (dispatcher)</button>
+                    </div>);
+                }
+            }
+            class Parent extends React.Component{
+                constructor(){
+                    super();
+                    this.state = {
+                        items: store.getAllItems()
+                    }
+                }
+                componentWillMount(){
+                    store.on("change", ()=>{
+                        this.setState({ items: store.getAllItems()});
+                    })
+                }
+                saveItem(){
+                    d.dispatch({action: 'add', name:"Parent"});
+                }
+                removeItem(){
+                    d.dispatch({action: 'remove'});
+                }
+                render(){
+                    return(<div>
+                        Parent
+                        <ul>
+                        {
+                            this.state.items.map(x=>(<li key={x.id}>{x.name}</li>))
+                        }
+                        </ul>
+                        <button onClick={()=>store.addItem()}>Add Item (DC)</button>
+                        <button onClick={()=>this.saveItem()}>Add Item (dispatcher)</button>
+                        <button onClick={()=>this.removeItem()}>Remove Item (dispatcher)</button>
+                    </div>);
+                }
+            }
+            let Page = function(){ 
+                return (<div>
+                    <Homepage />
+                    <hr/>
+                    <AboutUs />
+                    <hr/>
+                    <Parent />
+                </div>)
+                };
+          ReactDOM.render(<Page />,document.getElementById('root'));
+        </script>
+    </body>
+</html>
