@@ -13,7 +13,7 @@
                 super(props);
             }
             render(){
-            console.log(this.props);
+            console.log("***", this.props);
                 return (<div>
                     <h1>Child Component {this.props.count} </h1>
                     <button onClick={this.props.alert}>Alert</button> 
@@ -24,13 +24,13 @@
           let Hoc = (prop, fun)=>{
             return (Comp)=>{
                 return (props)=>{
-                    console.log(prop, fun);
+                    //console.log(prop, fun);
                     return (<div><Comp count={prop} alert={fun} /></div>);
                 }
             }
           }
 
-          let HocCom = Hoc(12, function(){ alert("Alerted!"); })(Child);
+          let HocCom = Hoc(19, function(){ alert("Alerted!"); })(Child);
 
           class Parent extends React.Component{
             constructor(){

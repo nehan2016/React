@@ -5,38 +5,20 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.4/redux.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/EventEmitter/5.2.6/EventEmitter.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/redux-thunk/2.3.0/redux-thunk.js"></script>
     </head>
     <body>
         <div id="root"></div>
         <script type="text/babel">
         let reducer =(state=["Initial State"], action)=>{
-        	//console.log("reducer", state, action);
         	if(action.type=="Add"){
         		console.log("Add action performed in the reducer");
-        		return [...state, action.payload.name];
+                return [...state, action.payload.name]
         	}
         	return state;
         }
-        let middleW1 = function(arg){
-        	console.log("Middleware1", arg, arg.getState());
-        	return function(next){
-        		return function(action){
-        			console.log("i'm middleware 1", action);
-                    next({type: "Add", payload: { name: 'XYZ'}});
-        			return next(action);
-        		}
-        	}
-        }
-        let middleW2 = function(arg){
-        	console.log("Middleware2", arg, arg.getState());
-        	return function(next){
-        		return function(action){
-        			console.log("i'm middleware 2", action);
-        			return next(action);
-        		}
-        	}
-        }
-        let store = Redux.createStore(reducer, Redux.applyMiddleware(middleW1, middleW2)); //reducer, initial state, middleware
+        
+        let store = Redux.createStore(reducer, Redux.applyMiddleware(ReduxThunk.default)); //reducer, initial state, middleware
         window.store = store;
         class Homepage extends React.Component{
         	constructor(){
@@ -46,7 +28,12 @@
         		return (
         		<div>
         			Homepage Component
-        			<button onClick={()=>store.dispatch({type: 'Add', payload: { name: 'ABC'} })}>Save</button>
+        			<button onClick={()=>store.dispatch(function(){ 
+                        console.log('Fetch the data first then dispatch the add action'); 
+                        setTimeout(function(){
+                            store.dispatch({type: 'Add', payload: { name: 'ABC'} });
+                        }, 3000);
+                    })}>Save</button>
         		</div>
         		);
         	}
