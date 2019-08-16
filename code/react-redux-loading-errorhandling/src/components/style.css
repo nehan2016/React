@@ -1,0 +1,22 @@
+img.loading{
+	width: 100px;
+    height: 100px;
+    position: absolute;
+}
+
+div.error{
+	display: block;
+    background: #ec0f0f;
+    color: #fff;
+    padding: 5px;
+}
+
+div.error .closeButton{
+	float: right;
+    margin-right: 10px;
+}
+
+button{
+	border-radius: 5px;
+    margin: 5px;
+}
