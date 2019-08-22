@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test Should not change the view 1`] = `
+<div>
+  Welcome 
+  abc
+  , 
+  10
+   
+  <h1>
+    hi
+  </h1>
+  <h1 />
+  <button
+    onClick={[Function]}
+  >
+    Increase Count
+  </button>
+  <input
+    type="button"
+    value="Save"
+  />
+</div>
+`;
